@@ -137,82 +137,47 @@ public class ArrayTasks {
      */
     public int[][] sortRaggedArray(int[][] arr) {
 
-//        int[][] newArr = new int[arr.length][];
-//
-//        for (int i = 0; i < arr.length-1; i++) {
-//            var min = arr[i];
-//            var current = arr[i];
-//
-//            for (int j = i+1; j < arr.length; j++) {
-//                if(arr[j].length < min.length) {
-//                    min = arr[j];
-//                }
-//            }
-//
-//            newArr[i] = new int[min.length];
-//
-//            for (int j = 0; j < min.length; j++) {
-//                newArr[i][j] = min[j];
-//            }
-//
-//            if(current != min ) {
-//
-//                for (int j = 0; j < current.length; j++) {
-//                    newArr[i][j] = current[j];
-//                }
-//            }
-//        }
+        // Сортировка пузырьком каждой строки внутри двумерного массива
+        for (int i = 0; i < arr.length; i++) {
+            boolean unsorted = true;
+            int temp;
 
-//        boolean unsorted = true;
-//
-//        while (unsorted) {
-//            unsorted = false;
-//            for (int i = 0; i < arr.length - 1; i++) {
-//
-//
-//                if (arr[i].length > arr[i + 1].length) {
-//                    var temp = arr[i];
-//                    arr[i] = arr[i + 1];
-//                    arr[i + 1] = temp;
-//                    unsorted = true;
-//                }
-//            }
-//        }
+            while (unsorted) {
+                unsorted = false;
+                for (int j = 0; j < arr[i].length - 1; j++) {
+                    if (arr[i][j] > arr[i][j+1]) {
+                        temp = arr[i][j];
+                        arr[i][j] = arr[i][j+1];
+                        arr[i][j+1] = temp;
+                        unsorted = true;
+                    }
+                }
+            }
+        }
 
 
-//        for (int j = 0; j < arr.length; j++) {
-//            unsorted = true;
-//            while (unsorted) {
-//                unsorted = false;
-//                for (int i = 0; i < arr[j].length-1; i++) {
-//                    if (arr[j][i] > arr[j][i+1]) {
-//                        int temp = arr[j][i];
-//                        arr[j][i] = arr[j][i + 1];
-//                        arr[j][i + 1] = temp;
-//                        unsorted = true;
-//                    }
-//                }
-//            }
-//        }
+        // Сортировка выбором по длине массивов внутри двумерного массива
+        for (int i = 0; i < arr.length; i++) {
+            int position = i;
+            var min = arr[i];
+
+            for (int j = i+1; j < arr.length; j++) {
+                if(arr[j].length < min.length) {
+                    position = j;
+                    min = arr[j];
+                }
+            }
+
+            arr[position] = new int[]{};
+            arr[position] = arr[i];
+
+            arr[i] = new int[]{};
+            arr[i] = min;
+
+        }
+
+
 
         return arr;
     }
-
-//    public static void main(String[] args) {
-//        int[][] arr = {{3, 1, 2}, {3, 2}};
-//        int[][] ans = sortRaggedArray(arr);
-//        for (int i = 0; i < ans.length; i++) {
-//            for (int j = 0; j < ans[i][j]; j++) {
-//                System.out.print(ans[i][j] + " ,");
-//            }
-//            System.out.println("__________");
-//        }
-////        int[] arr = {1,2};
-////        int[] arr2 = {1,2};
-////        var min = arr;
-////        var current = arr2;
-////
-////        System.out.println(min == current);
-//
-//    }
 }
